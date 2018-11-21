@@ -1,0 +1,24 @@
+# Carpetas de entornos virtuales
+env/
+venv/
+
+# Archivos de caché o bytecode de Python
+__pycache__/
+*.pyc
+
+# Configuraciones de IDEs
+.idea/
+.vscode/
+
+# Archivos de bases de datos
+db.sqlite3
+
+# Archivos de logs
+*.log
+
+# Archivos de SSOO
+.DS_Store
+Thumbs.db
+
+# Archivos de media
+media/
