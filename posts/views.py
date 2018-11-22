@@ -5,7 +5,7 @@ from posts.models import Post
 
 
 def home(request):
-    published_posts = Post.objects.filter(status=Post.PUBLISHED).order_by('-last_modification')
+    published_posts = Post.objects.select_related('owner').filter(status=Post.PUBLISHED).order_by('-last_modification')
     posts_list = published_posts[:5]
     context = {'posts': posts_list}
     return render(request, 'posts/home.html', context)
