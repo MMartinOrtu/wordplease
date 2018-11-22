@@ -8,7 +8,7 @@
     <h1>Tu portal de blogs personales</h1>
 <hr>
     {% for post in posts %}
-        <p>{{ post }}</p>
+        <a href="{% url 'post_detail' username post.pk %}>{{ post }}"></a>
     {% endfor %}
 
 </body>

@@ -22,6 +22,6 @@ from posts.views import home, post_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blogs/<str:username>/<int:pk>', post_detail),
-    path('', home)
+    path('blogs/<str:username>/<int:post_pk>', post_detail, name="post_detail"),
+    path('', home, name="home")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

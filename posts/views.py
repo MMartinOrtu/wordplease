@@ -11,9 +11,9 @@ def home(request):
     return render(request, 'posts/home.html', context)
 
 
-def post_detail(request, username, pk):
+def post_detail(request, username, post_pk):
     try:
-        post = Post.objects.get(id=pk)
+        post = Post.objects.get(pk=post_pk)
         context = {'post': post}
         return render(request, 'posts/post_detail.html', context)
     except Post.DoesNotExist:
