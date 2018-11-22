@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Wordplease</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block 'head_title' %} Wordplease {% endblock %}
+
+{% block main_title %} WordPlease {% endblock %}
+
+ {% block main_body %}
     <h1>Tu portal de blogs personales</h1>
-<hr>
+    <hr>
     {% for post in posts %}
         <a href="{% url 'post_detail' post.owner.username post.pk %}>{{ post }}"></a>
     {% endfor %}
-
-</body>
-</html>
+{% endblock %}

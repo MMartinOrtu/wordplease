@@ -13,7 +13,7 @@ def home(request):
 
 def post_detail(request, username, post_pk):
     try:
-        post = Post.objects.get(pk=post_pk)
+        post = Post.objects.select_related('owner').get(pk=post_pk)
         context = {'post': post}
         return render(request, 'posts/post_detail.html', context)
     except Post.DoesNotExist:
