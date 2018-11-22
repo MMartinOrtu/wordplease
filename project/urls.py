@@ -19,11 +19,12 @@ from django.contrib import admin
 from django.urls import path
 
 from posts.views import home, post_detail
-from users.views import login, logout
+from users.views import login, logout, signup
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blogs/<str:username>/<int:post_pk>', post_detail, name="post_detail"),
     path('login', login, name="login"),
     path('logout', logout, name="logout"),
+    path('signup', signup, name='signup'),
     path('', home, name="home")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

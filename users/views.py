@@ -1,6 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as login_user_in_django, logout as finish_user_session
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+
+from users.forms import SignUpForm
 
 
 def login(request):
@@ -8,7 +11,7 @@ def login(request):
     if request.method == 'POST':
         username = request.POST.get('form_username')
         password = request.POST.get('form_password')
-        user = authenticate(request, usename=username, password= password)
+        user = authenticate(request, username=username, password=password)
         if user is None:
             messages.error(request, 'Wrong username or password')
         else:
@@ -21,3 +24,23 @@ def logout(request):
     finish_user_session(request)
     messages.success(request, 'You have been logged out successfully!')
     return redirect('login')
+
+
+def signup(request):
+    form = SignUpForm()
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            new_user = User()
+            new_user.username = form.cleaned_data.get('username')
+            new_user.first_name = form.cleaned_data.get('first_name')
+            new_user.last_name = form.cleaned_data.get('last_name')
+            new_user.email = form.cleaned_data.get('email')
+            new_user.set_password(form.cleaned_data.get('password'))
+            new_user.save()
+            messages.success(request, 'User registered successfully!')
+            form = SignUpForm()
+    else:
+        form = SignUpForm()
+
+    return render(request, 'users/signup.html', {'form': form})
