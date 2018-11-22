@@ -18,9 +18,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from posts.views import hello
+from posts.views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', hello)
+    path('', home)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

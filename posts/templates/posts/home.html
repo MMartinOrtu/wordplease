@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wordplease</title>
+</head>
+<body>
+    <h1>Tu portal de blogs personales</h1>
+<hr>
+    {% for post in posts %}
+        <p>{{ post.title }}</p>
+    {% endfor %}
+
+</body>
+</html>
