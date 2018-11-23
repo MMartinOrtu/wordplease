@@ -22,7 +22,7 @@ from posts.views import HomeView, PostDetailView, NewPostView
 from users.views import LoginView, LogoutView, SignUpView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blogs/<str:username>/<int:post_pk>', PostDetailView.as_view(), name="post_detail"),
+    path('blogs/<str:username>/<int:pk>', PostDetailView.as_view(), name="post_detail"),
     path('new-post', NewPostView.as_view(), name="new-post"),
     path('login', LoginView.as_view(), name="login"),
     path('logout', LogoutView.as_view(), name="logout"),

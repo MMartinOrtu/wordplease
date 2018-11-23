@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block 'head_title' %} Wordplease {% endblock %}</title>
-</head>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 <body>
     <nav>
         <a href="{% url 'home' %}">Home</a> |

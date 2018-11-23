@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.generic import DetailView
 
 from posts.forms import NewPostForm
 from posts.models import Post
@@ -18,16 +19,10 @@ class HomeView(View):
         return render(request, 'posts/home.html', context)
 
 
+class PostDetailView(DetailView):
 
-class PostDetailView(View):
-
-    def post_detail(self, request, username, post_pk):
-        try:
-            post = Post.objects.select_related('owner').get(pk=post_pk)
-            context = {'post': post}
-            return render(request, 'posts/post_detail.html', context)
-        except Post.DoesNotExist:
-            return HttpResponse('Post not found', status=404)
+    model=Post
+    template_name = 'posts/post_detail.html'
 
 
 class NewPostView(View):
