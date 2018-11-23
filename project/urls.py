@@ -18,14 +18,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from posts.views import home, post_detail, new_post
-from users.views import login, logout, signup
+from posts.views import HomeView, PostDetailView, NewPostView
+from users.views import LoginView, LogoutView, SignUpView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blogs/<str:username>/<int:post_pk>', post_detail, name="post_detail"),
-    path('new-post', new_post, name="new-post"),
-    path('login', login, name="login"),
-    path('logout', logout, name="logout"),
-    path('signup', signup, name='signup'),
-    path('', home, name="home")
+    path('blogs/<str:username>/<int:post_pk>', PostDetailView.as_view(), name="post_detail"),
+    path('new-post', NewPostView.as_view(), name="new-post"),
+    path('login', LoginView.as_view(), name="login"),
+    path('logout', LogoutView.as_view(), name="logout"),
+    path('signup', SignUpView.as_view(), name='signup'),
+    path('', HomeView.as_view(), name="home")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
