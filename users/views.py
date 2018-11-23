@@ -16,7 +16,8 @@ def login(request):
             messages.error(request, 'Wrong username or password')
         else:
             login_user_in_django(request, user)
-            return redirect('home')
+            welcome_url = request.GET.get('next', 'home')
+            return redirect(welcome_url)
     return render(request, 'users/login.html')
 
 
