@@ -18,11 +18,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from posts.views import HomeView, PostDetailView, NewPostView
-from users.views import LoginView, LogoutView, SignUpView
+from posts.views import HomeView, PostDetailView, NewPostView, user_posts_list
+from users.views import LoginView, LogoutView, SignUpView, blogs_list
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+
     path('blogs/<str:username>/<int:pk>', PostDetailView.as_view(), name="post_detail"),
+    path('blogs/<str:username>', user_posts_list, name="user_posts_list"),
+    path('blogs', blogs_list, name="blog_list"),
     path('new-post', NewPostView.as_view(), name="new-post"),
     path('login', LoginView.as_view(), name="login"),
     path('logout', LogoutView.as_view(), name="logout"),

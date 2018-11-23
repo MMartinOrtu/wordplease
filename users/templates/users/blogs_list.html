@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block head_title %} Listado de Blogs {% endblock %}
+
+{% block main_title %} Listado de Blogs {% endblock %}
+
+{% block main_body %}
+
+      {% for user in users %}
+        <a href="{% url 'user_posts_list' user.username %}">
+           <p>Blog personal de {{user.username}}</p>
+        </a>
+        {% endfor %}
+
+{% endblock %}

@@ -41,3 +41,10 @@ class NewPostView(View):
             messages.success(request, 'Post {0} created successfully!'.format(new_post.name))
             form = NewPostForm()
         return render(request, 'posts/new_post.html', {'form': form})
+
+
+def user_posts_list(request, username):
+    posts_list = Post.objects.select_related('owner').filter(owner__username=username)
+
+    context = {'posts': posts_list}
+    return render(request, 'posts/home.html', context)

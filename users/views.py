@@ -51,3 +51,11 @@ class SignUpView(View):
             form = SignUpForm()
 
         return render(request, 'users/signup.html', {'form': form})
+
+
+def blogs_list(request):
+    users = User.objects.all()
+    context = {'users': users}
+    return render(request, 'users/blogs_list.html', context)
+
+

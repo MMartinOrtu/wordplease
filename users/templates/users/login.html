@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block 'head_title' %} Login {% endblock %}
+{% block head_title %} Login {% endblock %}
 
 {% block main_title %} Login {% endblock %}
 
- {% block main_body %}
+{% block main_body %}
 
     <form method="post">
         {% csrf_token %}

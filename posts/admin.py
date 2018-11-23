@@ -18,7 +18,7 @@ class PostAdmin(admin.ModelAdmin):
 
     def image_tag(self, obj):
         return mark_safe(
-            '<img src="{0}" alt="{1}" title="{1}" width="100" height="100">'.format(obj.image.url, obj.name)
+            '<img src="{0}" alt="{1}" title="{1}" width="100" height="100">'.format(obj.image.url, obj.image.name)
         )
 
     image_tag.short_description = 'Image'
