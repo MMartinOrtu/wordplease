@@ -1,7 +1,7 @@
-from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import DetailView, ListView
@@ -11,7 +11,7 @@ from posts.models import Post
 
 class HomeView(ListView):
 
-    queryset = Post.objects.select_related('owner').filter(publication_date__lte=datetime.now())\
+    queryset = Post.objects.select_related('owner').filter(publication_date__lte=timezone.now())\
             .exclude(status=Post.DRAFT).order_by('-last_modification')
     template_name = 'posts/home.html'
     paginate_by = 2
@@ -48,5 +48,5 @@ class UserPostsListView(ListView):
     def get_queryset(self):
         username = self.kwargs['username']
         return Post.objects.select_related('owner')\
-            .filter(owner__username=username, publication_date__lte=datetime.now())\
+            .filter(owner__username=username, publication_date__lte=timezone.now())\
             .exclude(status=Post.DRAFT).order_by('-last_modification')

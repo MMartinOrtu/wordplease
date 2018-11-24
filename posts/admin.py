@@ -27,7 +27,7 @@ class PostAdmin(admin.ModelAdmin):
     def formatted_last_modification(self, obj):
         return obj.last_modification.strftime('%d/%m/%Y %H:%M')
 
-    formatted_last_modification.short_description = 'Las modification date'
+    formatted_last_modification.short_description = 'Last modification date'
     formatted_last_modification.admin_order_field = 'last_modification'
 
     fieldsets = [
