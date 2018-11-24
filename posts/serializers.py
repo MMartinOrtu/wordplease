@@ -16,3 +16,4 @@ class PostSerializer(PostListSerializer):
     class Meta(PostListSerializer.Meta):
 
         fields = '__all__'
+        read_only_fields = ['owner']
