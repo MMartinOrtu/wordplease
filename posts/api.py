@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from posts.models import Post
+from posts.permissions import PostPermission
 from posts.serializers import PostListSerializer, PostSerializer
 
 
@@ -24,6 +25,7 @@ class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
 
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [PostPermission]
 
 
 class UserPostsListAPIView(APIView):

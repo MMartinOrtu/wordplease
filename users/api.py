@@ -3,6 +3,8 @@ from rest_framework import status
 from rest_framework.generics import get_object_or_404, CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from users.permissions import UserPermission
 from users.serializers import UserSerializer, UsersBlogsList
 
 
@@ -15,7 +17,7 @@ class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
+    permission_classes = [UserPermission]
 
 class UsersBlogsListAPIView(APIView):
 
