@@ -7,7 +7,7 @@ from posts.models import Post
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     readonly_fields = ['last_modification', 'image_tag']
-    list_display = ['title', 'owner_fullname', 'image_tag', 'status', 'publication_date', 'formatted_last_modification']
+    list_display = ['title', 'owner_fullname', 'image_tag', 'intro', 'status', 'publication_date', 'formatted_last_modification']
     list_filter = ['status', 'owner', 'categories']
     search_fields = ['title', 'owner__username']
 

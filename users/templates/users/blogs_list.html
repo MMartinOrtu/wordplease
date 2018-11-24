@@ -6,7 +6,7 @@
 
 {% block main_body %}
 
-      {% for user in users %}
+      {% for user in object_list %}
         <a href="{% url 'user_posts_list' user.username %}">
            <p>Blog personal de {{user.username}}</p>
         </a>

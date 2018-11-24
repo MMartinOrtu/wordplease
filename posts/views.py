@@ -1,25 +1,19 @@
 from datetime import datetime
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import DetailView
-
+from django.views.generic import DetailView, ListView
 from posts.forms import NewPostForm
 from posts.models import Post
 
 
-class HomeView(View):
+class HomeView(ListView):
 
-    def get(self, request):
-        published_posts = Post.objects.select_related('owner').filter(publication_date__lte=datetime.now())\
+    queryset = Post.objects.select_related('owner').filter(publication_date__lte=datetime.now())\
             .exclude(status=Post.DRAFT).order_by('-last_modification')
-        posts_list = published_posts[:5]
-        context = {'posts': posts_list}
-        return render(request, 'posts/home.html', context)
+    template_name = 'posts/home.html'
 
 
 class PostDetailView(DetailView):
@@ -46,11 +40,11 @@ class NewPostView(View):
         return render(request, 'posts/new_post.html', {'form': form})
 
 
-class UserPostsListView(View):
+class UserPostsListView(ListView):
+    template_name = 'posts/home.html'
 
-    def get(self, request, username):
-        posts_list = Post.objects.select_related('owner')\
+    def get_queryset(self):
+        username = self.kwargs['username']
+        return Post.objects.select_related('owner')\
             .filter(owner__username=username, publication_date__lte=datetime.now())\
             .exclude(status=Post.DRAFT).order_by('-last_modification')
-        context = {'posts': posts_list}
-        return render(request, 'posts/home.html', context)

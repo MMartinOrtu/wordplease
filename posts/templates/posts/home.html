@@ -7,7 +7,7 @@
  {% block main_body %}
     <h1>Tu portal de blogs personales</h1>
     <hr>
-    {% for post in posts %}
+    {% for post in object_list %}
         <a href="{% url 'post_detail' post.owner.username post.pk %}">
             <p>Post {{post.title}}</p>
         </a>
