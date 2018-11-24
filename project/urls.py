@@ -16,18 +16,10 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
-from posts.views import HomeView, PostDetailView, NewPostView, UserPostsListView, BlogsListView
-from users.views import LoginView, LogoutView, SignUpView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blogs/<str:username>/<int:pk>', PostDetailView.as_view(), name="post_detail"),
-    path('blogs/<str:username>/', UserPostsListView.as_view(), name="user_posts_list"),
-    path('blogs', BlogsListView.as_view(), name="blog_list"),
-    path('new-post', NewPostView.as_view(), name="new-post"),
-    path('login', LoginView.as_view(), name="login"),
-    path('logout', LogoutView.as_view(), name="logout"),
-    path('signup', SignUpView.as_view(), name='signup'),
-    path('', HomeView.as_view(), name="home")
+    path('', include('posts.urls')),
+    path('', include('users.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
