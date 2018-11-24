@@ -6,9 +6,9 @@ from posts.models import Post
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    readonly_fields = ['pub_date', 'last_modification', 'image_tag']
-    list_display = ['title', 'owner_fullname', 'image_tag', 'status', 'formatted_publication_date', 'formatted_last_modification']
-    list_filter = ['status', 'owner']
+    readonly_fields = ['last_modification', 'image_tag']
+    list_display = ['title', 'owner_fullname', 'image_tag', 'status', 'publication_date', 'formatted_last_modification']
+    list_filter = ['status', 'owner', 'categories']
     search_fields = ['title', 'owner__username']
 
     def owner_fullname(self, obj):
@@ -23,11 +23,6 @@ class PostAdmin(admin.ModelAdmin):
 
     image_tag.short_description = 'Image'
 
-    def formatted_publication_date(self, obj):
-        return obj.pub_date.strftime('%d/%m/%Y %H:%M')
-
-    formatted_publication_date.short_description = 'Pub date'
-    formatted_publication_date.admin_order_field = 'pub_date'
 
     def formatted_last_modification(self, obj):
         return obj.last_modification.strftime('%d/%m/%Y %H:%M')
@@ -40,10 +35,10 @@ class PostAdmin(admin.ModelAdmin):
             'fields': ['image_tag', 'title', 'intro']
         }],
         ['Post info', {
-            'fields': ['owner', 'image', 'status', 'body']
+            'fields': ['owner', 'image', 'status', 'body', 'categories']
         }],
         ['Important dates', {
-            'fields': ['publication_date', 'pub_date', 'last_modification'],
+            'fields': ['publication_date', 'last_modification'],
             'classes': ['collapse']
         }]
     ]

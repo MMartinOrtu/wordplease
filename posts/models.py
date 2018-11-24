@@ -1,5 +1,9 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
+
+from categories.models import Category
 
 
 class Post(models.Model):
@@ -16,10 +20,11 @@ class Post(models.Model):
     intro = models.CharField(max_length=300)
     body = models.TextField()
     image = models.FileField()
-    status = models.CharField(max_length=3, choices=STATUS, default=DRAFT)
-    publication_date = models.DateTimeField(null=True, blank=True)
-    pub_date = models.DateTimeField(auto_now_add=True)
+    categories = models.ManyToManyField(Category)
+    status = models.CharField(max_length=3, choices=STATUS, default=PUBLISHED)
+    publication_date = models.DateTimeField(default=datetime.now)
     last_modification = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return '{0} ({1})'.format(self.title, self.get_status_display())
