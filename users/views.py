@@ -37,7 +37,7 @@ class SignUpView(View):
         form = SignUpForm()
         return render(request, 'users/signup.html', {'form': form})
 
-    def signup(request):
+    def post(self, request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             new_user = User()
@@ -49,13 +49,16 @@ class SignUpView(View):
             new_user.save()
             messages.success(request, 'User registered successfully!')
             form = SignUpForm()
-
+            if messages.success:
+                return redirect('home')
         return render(request, 'users/signup.html', {'form': form})
 
 
-def blogs_list(request):
-    users = User.objects.all()
-    context = {'users': users}
-    return render(request, 'users/blogs_list.html', context)
+class BlogsListView(View):
+
+    def get(self, request):
+        users = User.objects.all()
+        context = {'users': users}
+        return render(request, 'users/blogs_list.html', context)
 
 

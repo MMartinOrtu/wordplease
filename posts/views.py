@@ -41,14 +41,16 @@ class NewPostView(View):
         form = NewPostForm(request.POST, request.FILES, instance=new_post)
         if form.is_valid():
             new_post = form.save()
-            messages.success(request, 'Post {0} created successfully!'.format(new_post.name))
+            messages.success(request, 'Post {0} created successfully!'.format(new_post.title))
             form = NewPostForm()
         return render(request, 'posts/new_post.html', {'form': form})
 
 
-def user_posts_list(request, username):
-    posts_list = Post.objects.select_related('owner')\
-        .filter(owner__username=username, publication_date__lte=datetime.now())\
-        .exclude(status=Post.DRAFT).order_by('-last_modification')
-    context = {'posts': posts_list}
-    return render(request, 'posts/home.html', context)
+class UserPostsListView(View):
+
+    def get(self, request, username):
+        posts_list = Post.objects.select_related('owner')\
+            .filter(owner__username=username, publication_date__lte=datetime.now())\
+            .exclude(status=Post.DRAFT).order_by('-last_modification')
+        context = {'posts': posts_list}
+        return render(request, 'posts/home.html', context)
