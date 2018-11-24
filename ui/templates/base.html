@@ -8,7 +8,7 @@
 <body>
     <nav>
         <a href="{% url 'home' %}">Home</a> |
-        <a href="{% url 'blog_list' %}">Lists of blogs</a> |
+        <a href="{% url 'users_blog_list' %}">Lists of blogs</a> |
         {% if not user.is_authenticated %}
             <a href="{% url 'login' %}">Login</a> |
             <a href="{% url 'signup' %}">Sign Up</a> |

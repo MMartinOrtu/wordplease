@@ -1,7 +1,6 @@
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -40,12 +39,6 @@ class NewPostView(View):
             messages.success(request, 'Post {0} created successfully!'.format(new_post.title))
             form = NewPostForm()
         return render(request, 'posts/new_post.html', {'form': form})
-
-
-class BlogsListView(ListView):
-    model = User
-    template_name = 'posts/blogs_list.html'
-
 
 
 class UserPostsListView(ListView):
