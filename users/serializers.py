@@ -2,6 +2,10 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 
 
+class UsersBlogsList(serializers.Serializer):
+    username = serializers.CharField()
+
+
 class UserSerializer(serializers.Serializer):
 
     id = serializers.ReadOnlyField()

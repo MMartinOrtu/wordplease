@@ -1,36 +1,31 @@
 from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.generics import get_object_or_404
+from rest_framework.generics import get_object_or_404, CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, UsersBlogsList
 
 
-class CreateUserAPIView(APIView):
+class CreateUserAPIView(CreateAPIView):
 
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    serializer_class = UserSerializer
 
 
-class UserDetailAPIView(APIView):
+class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
 
-    def get(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-    def put(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
-        serializer = UserSerializer(user, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
 
-    def delete(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
-        user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+class UsersBlogsListAPIView(APIView):
+
+    def get(self, request):
+        users = User.objects.all()
+        users_list = []
+        for user in users:
+            users_list.append({
+                'username': user.username,
+                'blogURL': '{0}{1}{2}'.format(request._request._current_scheme_host, request._request.path, user.username )
+            })
+        serializer = UsersBlogsList(users_list, many=True)
+        return Response(serializer.instance)
