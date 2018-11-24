@@ -25,6 +25,5 @@ class Post(models.Model):
     publication_date = models.DateTimeField(default=datetime.now)
     last_modification = models.DateTimeField(auto_now=True)
 
-
     def __str__(self):
         return '{0} ({1})'.format(self.title, self.get_status_display())

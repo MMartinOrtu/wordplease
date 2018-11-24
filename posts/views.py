@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -13,7 +15,8 @@ from posts.models import Post
 class HomeView(View):
 
     def get(self, request):
-        published_posts = Post.objects.select_related('owner').filter(status=Post.PUBLISHED).order_by('-last_modification')
+        published_posts = Post.objects.select_related('owner').filter(publication_date__lte=datetime.now())\
+            .exclude(status=Post.DRAFT).order_by('-last_modification')
         posts_list = published_posts[:5]
         context = {'posts': posts_list}
         return render(request, 'posts/home.html', context)
@@ -44,7 +47,8 @@ class NewPostView(View):
 
 
 def user_posts_list(request, username):
-    posts_list = Post.objects.select_related('owner').filter(owner__username=username)
-
+    posts_list = Post.objects.select_related('owner')\
+        .filter(owner__username=username, publication_date__lte=datetime.now())\
+        .exclude(status=Post.DRAFT).order_by('-last_modification')
     context = {'posts': posts_list}
     return render(request, 'posts/home.html', context)
