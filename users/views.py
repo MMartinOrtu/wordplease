@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login as login_user_in_django, log
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views import View
-from django.views.generic import CreateView, ListView
+
 
 from users.forms import SignUpForm
 
@@ -55,6 +55,4 @@ class SignUpView(View):
         return render(request, 'users/signup.html', {'form': form})
 
 
-class BlogsListView(ListView):
-    model = User
-    template_name = 'users/blogs_list.html'
+

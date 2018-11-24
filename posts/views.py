@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -14,6 +15,7 @@ class HomeView(ListView):
     queryset = Post.objects.select_related('owner').filter(publication_date__lte=datetime.now())\
             .exclude(status=Post.DRAFT).order_by('-last_modification')
     template_name = 'posts/home.html'
+    paginate_by = 2
 
 
 class PostDetailView(DetailView):
@@ -40,8 +42,15 @@ class NewPostView(View):
         return render(request, 'posts/new_post.html', {'form': form})
 
 
+class BlogsListView(ListView):
+    model = User
+    template_name = 'posts/blogs_list.html'
+
+
+
 class UserPostsListView(ListView):
     template_name = 'posts/home.html'
+    paginate_by = 2
 
     def get_queryset(self):
         username = self.kwargs['username']
