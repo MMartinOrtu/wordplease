@@ -54,3 +54,10 @@ pip install -r requirements.txt
 + ` GET /api/1.0/blogs/` display a list of the existing blogs
 + ` GET /api/1.0/blogs/username/` display the posts of a user blog
 
+### Authentication
+
+Some endpoints require authentication and permissions.
+
+### Filter and ordering data
+
+Searching and ordering data are allowed in list endpoints
