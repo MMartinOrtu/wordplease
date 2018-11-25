@@ -1,6 +1,6 @@
 # WordPlease
 
-A blog platform web and API application for made with Python and Django 
+A blog platform web app backend and API for made with Python and Django 
 
 ## Installation
 
