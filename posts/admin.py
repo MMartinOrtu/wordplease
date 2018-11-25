@@ -32,7 +32,7 @@ class PostAdmin(admin.ModelAdmin):
 
     fieldsets = [
         [None, {
-            'fields': ['blog', 'image_tag', 'title', 'intro']
+            'fields': ['image_tag', 'title', 'intro']
         }],
         ['Post info', {
             'fields': ['owner', 'image', 'status', 'body', 'categories']

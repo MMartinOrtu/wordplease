@@ -19,7 +19,7 @@ class HomeView(ListView):
 
 class PostDetailView(DetailView):
 
-    model=Post
+    model = Post
     template_name = 'posts/post_detail.html'
 
 
@@ -39,14 +39,3 @@ class NewPostView(View):
             messages.success(request, 'Post {0} created successfully!'.format(new_post.title))
             form = NewPostForm()
         return render(request, 'posts/new_post.html', {'form': form})
-
-
-class UserPostsListView(ListView):
-    template_name = 'posts/home.html'
-    paginate_by = 2
-
-    def get_queryset(self):
-        username = self.kwargs['username']
-        return Post.objects.select_related('owner')\
-            .filter(owner__username=username, publication_date__lte=timezone.now())\
-            .exclude(status=Post.DRAFT).order_by('-last_modification')

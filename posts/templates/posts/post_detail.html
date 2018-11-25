@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 
-{% block 'head_title' %}  {% endblock %}
-
-{% block main_title %}  {% endblock %}
-
- {% block main_body %}
-<p>{{post.body}}</p>
+{% block 'header_title' %} {{post.owner.blog.title}} {% endblock %}
+{% block 'main_body' %}
+          <div class="post">
+          <a href="{% url 'post_detail' post.owner.username post.pk %}">
+            <h2>{{post.title}}</h2>
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" title="{{ ad.title }}">
+          </a>
+            <p>{{post.body}}</p>
+            <p>Posted on {{post.publication_date|date:"d/m/Y H:i"}} by {{post.owner.first_name}} {{post.owner.last_name}}</p>
+            <p>Categorias: {% for categories in post.categories.all %}{{categories.name}}  {% endfor %}</p>
+        </div>
 
 {% endblock %}
