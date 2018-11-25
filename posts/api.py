@@ -1,10 +1,10 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from posts.models import Post
-from posts.permissions import PostPermission, BlogPermission
+from posts.permissions import PostPermission
 from posts.serializers import PostListSerializer, PostSerializer
 
 
@@ -20,7 +20,6 @@ class PostListAPIView(ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-
 class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
 
     queryset = Post.objects.all()
@@ -28,16 +27,15 @@ class PostDetailAPIView(RetrieveUpdateDestroyAPIView):
     permission_classes = [PostPermission]
 
 
-class UserPostsListAPIView(APIView):
-
-    #permission_classes = [isAdminUser]
+class UserPostsListAPIView(GenericAPIView):
+    queryset = []
 
     def get(self, request, username):
-        posts_list = Post.objects.filter(owner__username=username)
+        posts_list = Post.objects.filter(owner__username=username).order_by('-publication_date')
         if request.user.is_superuser or request.user.username == username:
-            queryset = posts_list
+            queryset = self.paginate_queryset(posts_list)
         else:
-            queryset = posts_list.filter(status=Post.PUBLISHED)
+            queryset = self.paginate_queryset(posts_list.filter(status=Post.PUBLISHED))
 
         serializer = PostListSerializer(queryset, many=True)
-        return Response(serializer.data)
+        return self.get_paginated_response(serializer.data)

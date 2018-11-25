@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
-from rest_framework import status
-from rest_framework.generics import get_object_or_404, CreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -19,8 +18,8 @@ class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     permission_classes = [UserPermission]
 
-class UsersBlogsListAPIView(APIView):
-
+class UsersBlogsListAPIView(GenericAPIView):
+    queryset = []
     def get(self, request):
         users = User.objects.all()
         users_list = []
@@ -29,5 +28,6 @@ class UsersBlogsListAPIView(APIView):
                 'username': user.username,
                 'blogURL': '{0}{1}{2}'.format(request._request._current_scheme_host, request._request.path, user.username )
             })
-        serializer = UsersBlogsList(users_list, many=True)
-        return Response(serializer.instance)
+        queryset = self.paginate_queryset(users_list)
+        serializer = UsersBlogsList(queryset, many=True)
+        return self.get_paginated_response(serializer.instance)
