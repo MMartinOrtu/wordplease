@@ -1,3 +1,4 @@
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
@@ -12,6 +13,9 @@ class PostListAPIView(ListCreateAPIView):
 
     queryset = Post.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [OrderingFilter, SearchFilter]
+    search_fields = ['title', 'body']
+    ordering_fields = ['title', 'publication_date']
 
     def get_serializer_class(self):
         return PostListSerializer if self.request.method == 'GET' else PostSerializer

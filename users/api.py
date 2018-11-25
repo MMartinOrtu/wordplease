@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView, GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -18,8 +19,13 @@ class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     permission_classes = [UserPermission]
 
+
 class UsersBlogsListAPIView(GenericAPIView):
-    queryset = []
+    queryset = User.objects.all()
+    filter_backends = [OrderingFilter, SearchFilter]
+    search_fields = ['username']
+    ordering_fields = ['username']
+
     def get(self, request):
         users = User.objects.all()
         users_list = []
