@@ -32,7 +32,6 @@ class UserSerializer(serializers.Serializer):
         # Validación al crear un usuario
         if self.instance is None and User.objects.filter(username=value).exists():
             raise serializers.ValidationError('Username {0} already exists'.format(value))
-
         return value
 
     def validate_email(self, value):
@@ -43,5 +42,4 @@ class UserSerializer(serializers.Serializer):
         # Validación al crear un usuario
         if self.instance is None and User.objects.filter(email=value).exists():
             raise serializers.ValidationError('Email {0} already exists'.format(value))
-
         return value

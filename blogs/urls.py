@@ -8,6 +8,6 @@ urlpatterns = [
     path('blogs', BlogsListView.as_view(), name="blogs_list"),
 
     #API
-    path('api/1.0/blogs/<str:username>', UserBlogAPIView.as_view(), name='user_blog_api'),
+    path('api/1.0/blogs/<str:username>/', UserBlogAPIView.as_view(), name='user_blog_api'),
     path('api/1.0/blogs/', BlogsListAPIView.as_view(), name='blogs_list_api')
 ]

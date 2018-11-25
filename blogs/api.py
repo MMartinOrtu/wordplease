@@ -1,39 +1,26 @@
 from rest_framework.filters import OrderingFilter, SearchFilter
-from rest_framework.generics import GenericAPIView
-
+from rest_framework.generics import GenericAPIView, ListAPIView
+from blogs.serializers import PostListSerializer, BlogsList
 from blogs.models import Blog
-from blogs.serializers import BlogsList, PostListSerializer
 from posts.models import Post
 
 
-class BlogsListAPIView(GenericAPIView):
+class BlogsListAPIView(ListAPIView):
     queryset = Blog.objects.all()
+    serializer_class = BlogsList
     filter_backends = [OrderingFilter, SearchFilter]
-    search_fields = ['username']
-    ordering_fields = ['username']
-
-    def get(self, request):
-        users = Blog.objects.all()
-        users_list = []
-        for user in users:
-            users_list.append({
-                'username': user.username,
-                'blogURL': '{0}{1}{2}'.format(request._request._current_scheme_host, request._request.path, user.username )
-            })
-        queryset = self.paginate_queryset(users_list)
-        serializer = BlogsList(queryset, many=True)
-        return self.get_paginated_response(serializer.instance)
+    search_fields = ['title']
+    ordering_fields = ['title']
 
 
-class UserBlogAPIView(GenericAPIView):
-    queryset = []
+class UserBlogAPIView(ListAPIView):
+    serializer_class = PostListSerializer
+    filter_backends = [OrderingFilter, SearchFilter]
+    search_fields = ['title', 'intro', 'body']
+    ordering_fields = ['title', 'publication_date']
 
-    def get(self, request, username):
+    def get_queryset(self):
+        username = self.kwargs['username']
         posts_list = Post.objects.filter(owner__username=username).order_by('-publication_date')
-        if request.user.is_superuser or request.user.username == username:
-            queryset = self.paginate_queryset(posts_list)
-        else:
-            queryset = self.paginate_queryset(posts_list.filter(status=Post.PUBLISHED))
-
-        serializer = PostListSerializer(queryset, many=True)
-        return self.get_paginated_response(serializer.data)
+        return posts_list if self.request.user.is_superuser or self.request.user.username == username \
+            else posts_list.filter(status=Post.PUBLISHED)
