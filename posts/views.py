@@ -14,7 +14,7 @@ class HomeView(ListView):
     queryset = Post.objects.select_related('owner').filter(publication_date__lte=timezone.now())\
             .exclude(status=Post.DRAFT).order_by('-last_modification')
     template_name = 'posts/home.html'
-    paginate_by = 2
+    paginate_by = 3
 
 
 class PostDetailView(DetailView):

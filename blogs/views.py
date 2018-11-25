@@ -8,7 +8,7 @@ from blogs.models import Blog
 from posts.models import Post
 
 
-class UsersBlogsListView(ListView):
+class BlogsListView(ListView):
     model = User
     template_name = 'blogs/blogs_list.html'
 

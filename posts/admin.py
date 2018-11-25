@@ -23,7 +23,6 @@ class PostAdmin(admin.ModelAdmin):
 
     image_tag.short_description = 'Image'
 
-
     def formatted_last_modification(self, obj):
         return obj.last_modification.strftime('%d/%m/%Y %H:%M')
 
