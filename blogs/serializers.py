@@ -16,11 +16,8 @@ class PostListSerializer(serializers.ModelSerializer):
 class BlogsList(serializers.ModelSerializer):
     user = serializers.CharField()
     title = serializers.CharField()
-    url = serializers.SerializerMethodField()
+    url = serializers.HyperlinkedIdentityField(view_name='user_blog', lookup_field='username')
     number_of_posts = serializers.SerializerMethodField()
-
-    def get_url(self, obj):
-        return reverse('user_blog', args=[obj.user])
 
     def get_number_of_posts(self, obj):
         return Post.objects.all().filter(owner__username=obj.user).count()

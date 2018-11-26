@@ -1,6 +1,8 @@
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+
 from categories.models import Category
 
 
@@ -22,6 +24,9 @@ class Post(models.Model):
     status = models.CharField(max_length=3, choices=STATUS, default=PUBLISHED)
     publication_date = models.DateTimeField(default=datetime.now)
     last_modification = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'username': self.owner, 'pk': self.pk})
 
     def __str__(self):
         return '{0} ({1})'.format(self.title, self.get_status_display())
