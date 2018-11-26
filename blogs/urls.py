@@ -4,7 +4,7 @@ from blogs.api import BlogsListAPIView, UserBlogAPIView
 from blogs.views import BlogsListView, UserBlogView
 
 urlpatterns = [
-    path('/blogs/<str:username>', UserBlogView.as_view(), name="user_blog"),
+    path('blogs/<str:username>', UserBlogView.as_view(), name="user_blog"),
     path('blogs', BlogsListView.as_view(), name="blogs_list"),
 
     #API
