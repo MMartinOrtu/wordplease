@@ -3,11 +3,14 @@
 {% block 'header_title' %} Lists of blogs {% endblock %}
 
 {% block 'main_body' %}
-
+<section class="blogs-list">
       {% for user in object_list %}
         <a href="{% url 'user_blog' user.username %}">
            <p> {{user.blog.title}}</p>
         </a>
         {% endfor %}
-
+        <div>
+            <a title="back" class="back" href='javascript:history.back()'><- Back</a>
+        </div>
+</section>
 {% endblock %}

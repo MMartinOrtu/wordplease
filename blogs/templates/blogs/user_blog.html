@@ -3,23 +3,38 @@
 {% block 'header_title' %} {{title}} {% endblock %}
 
  {% block 'main_body' %}
+<section class="articles-list">
     {% if posts %}
       {% for post in posts %}
-        <div class="post">
+        <div class="articles">
           <a href="{% url 'post_detail' post.owner.username post.pk %}">
-            <h2>{{post.title}}</h2>
-            <img src="{{ post.image.url }}" width="400px" alt="{{ post.title }}" title="{{ ad.title }}">
+            <div class="cover">
+                <img class="article-cover" src="{{ post.image.url }}" width="400px" alt="{{ post.title }}" title="{{ ad.title }}">
+            </div>
           </a>
-            <p>{{post.intro}}</p>
-            <p>Posted on {{post.publication_date|date:"d/m/Y H:i"}}</p>
+
+            <div class="info">
+                <a class="detail-link" href="{% url 'post_detail' post.owner.username post.pk %}">
+                    <h2 class="title">{{post.title}}</h2>
+                </a>
+                <div class="author-wrapper author">{{post.owner.first_name}} {{post.owner.last_name}}</div>
+                <div class="text-wrapper">
+                    <div class="text hide-elements">{{post.intro}}</div>
+                </div>
+                <div class="bottom-info-wrapper">
+                    <p class="published-date">Posted on {{post.publication_date|date:"d/m/Y H:i"}}</p>
+                </div>
+            </div>
         </div>
-        <hr>
+
       {% endfor %}
     {% else %}
-        <h3>This user has not published any post yet</h3>
+        <h3 class="not-publications">This user has not published any post yet</h3>
     {% endif %}
-
-
+        <div class="back-wrapper">
+            <a title="back" class="back" href='javascript:history.back()'><- Back</a>
+        </div>
+</section>
 
 
 

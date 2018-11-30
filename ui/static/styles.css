@@ -1,0 +1,65 @@
+
+@import 'articles.962ac530615807ccf99a.css';
+
+body {padding-top: 70px}
+.ad { display: inline-block; }
+.ad img { display:block; height: 250px; }
+.ad strong { display: block; }
+.message.error { color: red; }
+.message.success { color: green; }
+.pagination {text-align: center;}
+
+ .article-detail .author-wrapper {
+     display: block;
+     color: maroon;
+ }
+
+ .categorias { color: maroon; font-size: 1.2rem;}
+
+ .blogs-list {
+     margin: 100px;
+     text-align: center;
+ }
+
+ .blogs-list a p {
+     font-size: 2rem;
+     color: maroon;
+     transition: all .2s linear;
+ }
+
+  .blogs-list a p:hover {
+      font-size: 2.3rem;
+      color: #438070;
+ }
+  .back-wrapper{ text-align: center;}
+
+  .not-publications{text-align: center;}
+
+  .form{
+      margin: 100px;
+      display: grid;
+      justify-items:left;
+      justify-content: center;
+      font-size: 1.5rem;
+  }
+
+  .form input{
+        padding: 0.8rem;
+        letter-spacing: normal;
+        border: 0px solid white;
+        width: 95%;
+            font-size: 1.5rem;
+    }
+
+    .form button{
+        border: 0px solid;
+        margin:10px;
+        border-radius:10px;
+        max-width: 250px;
+        width: 300px;
+        height: 40px;
+        font-size: 1.5rem;
+    }
+    .form p{
+        margin:0;
+    }

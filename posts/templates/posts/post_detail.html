@@ -2,14 +2,21 @@
 
 {% block 'header_title' %} {{post.owner.blog.title}} {% endblock %}
 {% block 'main_body' %}
-          <div class="post">
-          <a href="{% url 'post_detail' post.owner.username post.pk %}">
-            <h2>{{post.title}}</h2>
-            <img src="{{ post.image.url }}" alt="{{ post.title }}" title="{{ ad.title }}">
-          </a>
-            <p>{{post.body}}</p>
-            <p>Posted on {{post.publication_date|date:"d/m/Y H:i"}} by {{post.owner.first_name}} {{post.owner.last_name}}</p>
-            <p>Categorias: {% for categories in post.categories.all %}{{categories.name}}  {% endfor %}</p>
-        </div>
+    <section class="article-detail">
+        <h2 class="title">{{post.title}}</h2>
+        <img  class="article-cover" src="{{ post.image.url }}" alt="{{ post.title }}" title="{{ ad.title }}">
+            <div class="author-wrapper">
+                <div class="author">{{post.owner.first_name}} {{post.owner.last_name}}</div>
+                <p class="published-date">{{post.publication_date|date:"d/m/Y H:i"}}</p>
+            </div>
+            <div class="text">{{post.body}}</div>
+            <p class="categorias">Categorias: {% for categories in post.categories.all %}   {{categories.name}}   {% endfor %}</p>
+            <div>
+                <a title="back" class="back" href='javascript:history.back()'><- Back</a>
+            </div>
+
+
+    </section>
+
 
 {% endblock %}

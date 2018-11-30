@@ -6,7 +6,7 @@
 
 {% block 'main_body' %}
 
-   <form method="post"novalidate enctype="multipart/form-data">
+   <form class="form" method="post"novalidate enctype="multipart/form-data">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit">Create post</button>

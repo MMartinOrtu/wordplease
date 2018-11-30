@@ -5,19 +5,20 @@
 {% block 'header_title' %} Login {% endblock %}
 
 {% block 'main_body' %}
-    <form method="post">
+    <form method="post" class="form">
         {% csrf_token %}
         <div>
             Username
             <input type="text" name="form_username" placeholder="Your username">
         </div>
-
         <div>
             Password
             <input type="password" name="form_password" placeholder="Your password">
         </div>
+        <div>
+          <button type="submit">Login</button>
+        </div>
 
-        <button type="submit">Login</button>
 
     </form>
 
