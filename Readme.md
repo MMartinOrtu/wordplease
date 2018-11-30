@@ -1,5 +1,5 @@
 # WordPlease
-
+<p align=center><img src="img/Foto-readme-logo.png"></p>
 A blog platform web app backend and API for made with Python and Django 
 
 ## Installation
@@ -61,3 +61,8 @@ Some endpoints require authentication and permissions.
 ### Filter and ordering data
 
 Searching and ordering data are allowed in list endpoints
+
+## Views
+
+### Main
+<p align=center><img src="img/Foto-readme.png"></p>
