@@ -5,6 +5,7 @@ body {padding-top: 70px}
 .ad { display: inline-block; }
 .ad img { display:block; height: 250px; }
 .ad strong { display: block; }
+.message {margin-top: 100px; text-align: center; font-size: 2rem;}
 .message.error { color: red; }
 .message.success { color: green; }
 .pagination {text-align: center;}
@@ -40,6 +41,7 @@ body {padding-top: 70px}
       display: grid;
       justify-items:left;
       justify-content: center;
+      align-items: start;
       font-size: 1.5rem;
   }
 
@@ -61,5 +63,9 @@ body {padding-top: 70px}
         font-size: 1.5rem;
     }
     .form p{
-        margin:0;
+        margin:3px;
+    }
+
+      .form label{
+       display:block;
     }
