@@ -66,3 +66,6 @@ Searching and ordering data are allowed in list endpoints
 
 ### Main
 <p align=center><img src="img/Foto-readme.png"></p>
+
+### Detail page
+<p align=center><img src="img/Foto-readme-detail.png"></p>
