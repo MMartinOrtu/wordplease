@@ -1,5 +1,5 @@
-# WordPlease
 <p align=center><img src="img/Foto-readme-logo.png"></p>
+
 A blog platform web app backend and API for made with Python and Django 
 
 ## Installation
